@@ -1,3 +1,31 @@
+let operation = "";
+let firstNum = "";
+let secondNum = "";
+let ans = "";
+
+const buttons = document.querySelectorAll(".number");
+const input = document.querySelector(".input");
+const operators = document.querySelectorAll(".operator");
+const clear = document.querySelector(".clear").addEventListener("click", () => {
+  operation = "";
+  firstNum = "";
+  secondNum = "";
+  ans = "";
+  input.innerHTML = "";
+});
+
+const equals = document
+  .querySelector(".equals")
+  .addEventListener("click", () => {
+    secondNum = input.innerHTML;
+    ans = operate(parseInt(firstNum), parseInt(secondNum), operation);
+    input.innerHTML = ans;
+    firstNum = ans;
+    ans = "";
+    secondNum = "";
+    console.log(ans);
+  });
+
 function add(a, b) {
   return a + b;
 }
@@ -17,41 +45,50 @@ function divide(a, b) {
 function operate(a, b, operation) {
   switch (operation) {
     case "+":
-      result = add(a, b);
+      return add(a, b);
       break;
     case "-":
-      result = subtract(a, b);
+      return subtract(a, b);
       break;
     case "x":
-      result = multiply(a, b);
+      return multiply(a, b);
       break;
     case "/":
-      result = divide(a, b);
+      return divide(a, b);
       break;
     default:
+      return null;
       break;
   }
-  return result;
 }
-
-let displayNum = []; // use array.join to display this
-
-let firstNum;
-let ans;
-
-const buttons = document.querySelectorAll(".number");
-const input = document.querySelector(".input");
-const operators = document.querySelectorAll(".operator");
-const equals = document
-  .querySelector(".equals")
-  .addEventListener("click", () => {
-    console.log(operate(9, 12, "+"));
-  });
 
 operators.forEach((operator) => {
   operator.addEventListener("click", () => {
-    console.log(operator.innerHTML);
-    input.innerHTML += 4; // this works
+    //   if (operation == "") {
+    //     firstNum = input.innerHTML;
+    //     operation = operator.innerHTML;
+    //     input.innerHTML = "";
+    //   } else if (firstNum != "" && secondNum != "") {
+    //     firstNum = operate(
+    //       parseInt(firstNum),
+    //       parseInt(secondNum),
+    //       operator.innerHTML
+    //     );
+    //     input.innerHTML = firstNum;
+    //   } else if (firstNum != "" && operation != "") {
+    //     secondNum = input.innerHTML;
+    //     input.innerHTML = "";
+    //     console.log("Second Num: " + secondNum);
+    //     console.log("Operation: " + operation);
+    //   }
+
+    if (firstNum != "") {
+      input.innerHTML = "";
+    } else {
+      firstNum = input.innerHTML;
+      input.innerHTML = "";
+    }
+    operation = operator.innerHTML;
   });
 });
 
@@ -60,6 +97,3 @@ buttons.forEach((button) => {
     input.innerHTML += button.value;
   });
 });
-
-
-// Changing stuff to test merge
